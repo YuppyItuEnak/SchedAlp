@@ -1,12 +1,17 @@
 package com.example.schedalp.model
 
+import android.text.format.DateFormat
+import java.sql.Time
+import java.time.Year
+import java.util.*
 
-    data class ScheduleState(
-        val schedule_name: String = "",
-        val date: String = "",
-        val enddate: String = "",
-        val waktu: String = "",
-        val endwaktu: String = "",
-        val activity: String = "",
-        val isLoading: Boolean = false,
+
+data class ScheduleState(
+    val schedule_name: String = "",
+    val date: Long = 0  ,
+
+    val waktu: Long = 0,
+
+    val activity: String = "",
+
     )
