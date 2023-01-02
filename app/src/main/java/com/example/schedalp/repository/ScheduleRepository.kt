@@ -19,15 +19,15 @@ class ScheduleRepository @Inject constructor(private val api: EndPointApi){
 
     suspend fun createSchedule(
         schedule_name: String,
-        date: Long,
-        waktu: Long,
+        date: String,
+        waktu: String,
         activity: String,
     ){
         val requestBody: RequestBody = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
             .addFormDataPart("schedule_name", schedule_name)
-            .addFormDataPart("date", date.toString())
-            .addFormDataPart("waktu", waktu.toString())
+            .addFormDataPart("date", date)
+            .addFormDataPart("waktu", waktu)
             .addFormDataPart("activity", activity)
             .build()
 

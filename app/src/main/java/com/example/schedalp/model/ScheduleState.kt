@@ -8,9 +8,9 @@ import java.util.*
 
 data class ScheduleState(
     val schedule_name: String = "",
-    val date: Long = 0  ,
+    val date: String = ""  ,
 
-    val waktu: Long = 0,
+    val waktu: String = "",
 
     val activity: String = "",
 

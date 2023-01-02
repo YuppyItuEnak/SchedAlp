@@ -10,6 +10,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.text.format.DateFormat
 import android.view.MenuItem
 import android.widget.Toast
@@ -22,15 +23,17 @@ import com.example.schedalp.databinding.ActivityAddScheduleBinding
 import com.example.schedalp.model.Data
 import com.example.schedalp.viewmodel.ScheduleViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 
 @AndroidEntryPoint
 class AddScheduleActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddScheduleBinding
-    private lateinit var adapter: ScheduleAdapter
+
+    //    private lateinit var adapter: ScheduleAdapter
     private lateinit var schedule: ScheduleViewModel
-    private lateinit var datalist: ArrayList<Data>
+//    private lateinit var datalist: ArrayList<Data>
 
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -40,15 +43,14 @@ class AddScheduleActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupListener()
         supportActionBar!!.title = "Add Schedule"
-        if(supportActionBar != null){
-        supportActionBar!!.setHomeButtonEnabled(true)
+        if (supportActionBar != null) {
+            supportActionBar!!.setHomeButtonEnabled(true)
         }
     }
 
-    
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun setupListener(){
+    private fun setupListener() {
         createNotificationChannel()
         binding.submitformadd.setOnClickListener {
             ScheduleNotification()
@@ -83,7 +85,7 @@ class AddScheduleActivity : AppCompatActivity() {
         }
     }
 
-    private fun ScheduleNotification(){
+    private fun ScheduleNotification() {
         val intent = Intent(applicationContext, Notification::class.java)
         val schedule_name = binding.inputschedule.editText!!.text.toString()
         val activity = binding.inputactivity.editText?.text.toString()
@@ -104,35 +106,44 @@ class AddScheduleActivity : AppCompatActivity() {
             time,
             pendingintent,
         )
-        showAlert(time, schedule_name, activity)
 
         schedule = ViewModelProvider(this)[ScheduleViewModel::class.java]
 
-                schedule.state = schedule.state.copy(
-                    schedule_name = schedule_name,
-                    date = time,
-                    waktu = time,
-                    activity = activity
-                )
-               schedule.createSchedule()
-               val back = Intent(this, MainActivity::class.java)
-               startActivity(back)
-               finish()
+        val date = Date(time)
+        val dformat = SimpleDateFormat("yyyy-MM-dd")
+        val formattedDate = dformat.format(date)
+        val dtime = SimpleDateFormat("HH:mm:ss")
+        val formattedTime = dtime.format(time)
+
+        schedule.state = schedule.state.copy(
+            schedule_name = schedule_name,
+            date = formattedDate,
+            waktu = formattedTime,
+            activity = activity
+        )
+        schedule.createSchedule()
+        showAlert(time, schedule_name, activity)
     }
 
     private fun showAlert(time: Long, scheduleName: String, activity: String) {
-        val Date = Date(time)
-        val dateformat = DateFormat.getLongDateFormat(applicationContext)
-        val timeformat = DateFormat.getLongDateFormat(applicationContext)
+        val date = Date(time)
+        val dformat = SimpleDateFormat("yyyy-MM-dd")
+        val formattedDate = dformat.format(date)
+        val dtime = SimpleDateFormat("HH:mm:ss")
+        val formattedTime = dtime.format(time)
 
         AlertDialog.Builder(this)
             .setTitle("Notification Scheduled")
             .setMessage(
                 "Schedule Name: " + scheduleName +
-                        "\nActivity: " + activity + "\nAt: " + dateformat.format(Date) +
-                        " " + timeformat.format(time)
+                        "\nActivity: " + activity + "\nAt: " + formattedDate +
+                        " " + formattedTime
             )
-            .setPositiveButton("Okay"){_,_ ->}
+            .setPositiveButton("Okay") { _, _ ->
+                val back = Intent(this, MainActivity::class.java)
+                startActivity(back)
+                finish()
+            }
             .show()
     }
 
@@ -149,8 +160,8 @@ class AddScheduleActivity : AppCompatActivity() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun createNotificationChannel(){
-        val schedule_name  = "Notif Channel"
+    private fun createNotificationChannel() {
+        val schedule_name = "Notif Channel"
         val activity = "A Description for notification"
         val importance = NotificationManager.IMPORTANCE_DEFAULT
         val channel = NotificationChannel(channelID, schedule_name, importance)
@@ -158,8 +169,6 @@ class AddScheduleActivity : AppCompatActivity() {
         val notificationmanager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         notificationmanager.createNotificationChannel(channel)
     }
-
-
 
 
 //    private fun UpdateSchedule(){
@@ -200,9 +209,9 @@ class AddScheduleActivity : AppCompatActivity() {
 //    }
 
 
-//     untuk back button kembali ke home
+    //     untuk back button kembali ke home
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId){
+        when (item.itemId) {
             android.R.id.home -> {
                 finish()
                 return true
