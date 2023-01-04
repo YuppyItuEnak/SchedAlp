@@ -1,20 +1,16 @@
 package com.example.schedalp.adapter
 
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
-import androidx.compose.ui.platform.LocalContext
 import androidx.recyclerview.widget.RecyclerView
 import com.example.schedalp.R
 import com.example.schedalp.model.Data
 import com.example.schedalp.view.AddScheduleActivity
-import com.example.schedalp.view.EditActivity
 
 
 class ScheduleAdapter(private val dataSet: ArrayList<Data>) :
@@ -88,9 +84,9 @@ class ScheduleAdapter(private val dataSet: ArrayList<Data>) :
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         viewHolder.schedulename.text = dataSet[position].schedule_name
-        viewHolder.startdate.text = dataSet[position].date.toString()
+        viewHolder.startdate.text = dataSet[position].date
 
-        viewHolder.startwaktu.text = dataSet[position].waktu.toString()
+        viewHolder.startwaktu.text = dataSet[position].waktu
 
         viewHolder.activity.text = dataSet[position].activity
 

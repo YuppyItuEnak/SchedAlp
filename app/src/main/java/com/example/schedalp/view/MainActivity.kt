@@ -28,8 +28,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var adapter: ScheduleAdapter
-    private  lateinit var viewModel: ScheduleViewModel
+//    private lateinit var adapter: ScheduleAdapter
+//    private  lateinit var viewModel: ScheduleViewModel
     lateinit var toggle : ActionBarDrawerToggle
     lateinit var  drawerLayout : DrawerLayout
 
@@ -52,34 +52,12 @@ class MainActivity : AppCompatActivity() {
         navview.setNavigationItemSelectedListener {
             it.isChecked = true
             when(it.itemId){
-                R.id.nav_home -> replacefragmentnav(HomeFragment(),it.title.toString())
-                R.id.nav_profile -> replacefragmentnav(ProfileFragment(), it.title.toString())
-                R.id.nav_login -> replacefragmentnav(LoginFragment(), it.title.toString())
+                R.id.nav_home -> replacefragmenthome(HomeFragment(),it.title.toString())
+                R.id.nav_profile -> replacefragmentProfile(ProfileFragment(), it.title.toString())
+                R.id.nav_login -> replacefragmentLogin(LoginFragment(), it.title.toString())
             }
             true
         }
-
-//        viewModel = ViewModelProvider(this).get(ScheduleViewModel::class.java)
-//        viewModel.getAllScheduleData()
-//
-//        viewModel.dataschedule.observe(this,{ response ->
-//            binding.mainrv.layoutManager = LinearLayoutManager(this)
-//            adapter = ScheduleAdapter(response)
-//            binding.mainrv.adapter = adapter
-//        })
-
-
-
-
-
-
-
-
-//        binding.create.setOnClickListener {
-//            val createButton = Intent(this, AddScheduleActivity::class.java)
-//            startActivity(createButton)
-//        }
-
     }
 
     private fun replaceFragment1(homefragment: Fragment){
@@ -90,11 +68,33 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
-    private fun replacefragmentnav(fragment: Fragment, title: String){
+    private fun replacefragmenthome(homefragment: Fragment,  title: String){
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
 
-        fragmentTransaction.replace(R.id.frameLayout, fragment)
+        fragmentTransaction.replace(R.id.frameLayout, homefragment)
+
+
+
+        fragmentTransaction.commit()
+        drawerLayout.closeDrawers()
+        setTitle(title)
+    }
+    private fun replacefragmentLogin(loginframent: Fragment, title: String){
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frameLayout, loginframent)
+
+        fragmentTransaction.commit()
+        drawerLayout.closeDrawers()
+        setTitle(title)
+    }
+    private fun replacefragmentProfile(profilefragment: Fragment, title: String){
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+        fragmentTransaction.replace(R.id.FrameLayout, profilefragment)
+
         fragmentTransaction.commit()
         drawerLayout.closeDrawers()
         setTitle(title)

@@ -26,7 +26,7 @@ interface EndPointApi {
 
 
     @GET("user")
-    suspend fun getAllUser(): Response<UserData>
+    suspend fun getUser(): Response<UserData>
     @POST("createuser")
     suspend fun createuser(@Body body: RequestBody?): ResponseBody?
 //    suspend fun CreateSchedule(): Response<ScheduleData>
