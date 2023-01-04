@@ -1,5 +1,5 @@
 package com.example.schedalp.helper
 
 object Const {
-const val API_KEY = "http://10.0.40.182:555/"
+const val API_KEY = "http://192.168.1.8:555/"
 }

@@ -28,6 +28,7 @@ interface EndPointApi {
         @Path("id") id:Int
     ): Response<UserData>
 
+    @FormUrlEncoded
     @POST("/login")
    fun Login(@Field("username") username: String, @Field("password") password: String): Call<Login>
 

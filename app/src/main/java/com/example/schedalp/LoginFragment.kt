@@ -1,15 +1,19 @@
 package com.example.schedalp
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.schedalp.databinding.FragmentLoginBinding
 import com.example.schedalp.model.Login
+import com.example.schedalp.view.MainActivity
 import com.example.schedalp.viewmodel.ScheduleViewModel
 import com.example.schedalp.viewmodel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -55,11 +59,20 @@ class LoginFragment : Fragment() {
             viewModel = ViewModelProvider(this)[UserViewModel::class.java]
             viewModel.Login(username, password).enqueue(object : retrofit2.Callback<Login>{
                 override fun onResponse(call: retrofit2.Call<Login>, response: retrofit2.Response<Login>) {
-
+                    if (response.isSuccessful){
+                        val intent = Intent(context, MainActivity::class.java)
+                        Toast.makeText(context, response.body()?.id, Toast.LENGTH_SHORT).show()
+                        intent.putExtra("login_id" , response.body()?.id?.toIntOrNull())
+                        startActivity(intent)
+                        Toast.makeText(context, "Login Success", Toast.LENGTH_SHORT).show()
+                        activity?.finish()
+                    }else{
+                        Toast.makeText(context, "Login Failed", Toast.LENGTH_SHORT).show()
+                    }
                 }
 
                 override fun onFailure(call: Call<Login>, t: Throwable) {
-                    TODO("Not yet implemented")
+                    Log.d("Login", "onFailure: ${t.message}")
                 }
             })
 
