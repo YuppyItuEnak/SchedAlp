@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
 
 
        drawerLayout = findViewById(R.id.navbar)
-        val navview : NavigationView = findViewById(R.id.view)
 
 
 

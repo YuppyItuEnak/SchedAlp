@@ -56,9 +56,7 @@ class ScheduleViewModel @Inject constructor(private val repository: ScheduleRepo
         repository.createSchedule(
             schedule_name = state.schedule_name,
             date = state.date,
-
             waktu = state.waktu,
-
             activity = state.activity
         )
     }

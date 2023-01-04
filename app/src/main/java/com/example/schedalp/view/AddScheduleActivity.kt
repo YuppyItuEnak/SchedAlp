@@ -19,9 +19,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import com.example.schedalp.*
 import com.example.schedalp.adapter.ScheduleAdapter
+import com.example.schedalp.adapter.UserAdapter
 import com.example.schedalp.databinding.ActivityAddScheduleBinding
 import com.example.schedalp.model.Data
 import com.example.schedalp.viewmodel.ScheduleViewModel
+import com.example.schedalp.viewmodel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Calendar

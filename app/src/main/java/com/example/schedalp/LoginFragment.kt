@@ -59,7 +59,7 @@ class LoginFragment : Fragment() {
             viewModel = ViewModelProvider(this)[UserViewModel::class.java]
             viewModel.Login(username, password).enqueue(object : retrofit2.Callback<Login>{
                 override fun onResponse(call: retrofit2.Call<Login>, response: retrofit2.Response<Login>) {
-                    if (response.isSuccessful){
+                    if (response.isSuccessful != null){
                         val intent = Intent(context, MainActivity::class.java)
                         Toast.makeText(context, response.body()?.id, Toast.LENGTH_SHORT).show()
                         intent.putExtra("login_id" , response.body()?.id?.toIntOrNull())
