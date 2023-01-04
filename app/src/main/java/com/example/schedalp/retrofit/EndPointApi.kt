@@ -1,12 +1,10 @@
 package com.example.schedalp.retrofit
 
-import com.example.schedalp.model.Data
-import com.example.schedalp.model.ScheduleData
-import com.example.schedalp.model.ScheduleState
-import com.example.schedalp.model.UserData
+import com.example.schedalp.model.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -25,8 +23,14 @@ interface EndPointApi {
 
 
 
-    @GET("user")
-    suspend fun getUser(): Response<UserData>
+    @GET("profile/{userid}")
+    suspend fun getUser(
+        @Path("id") id:Int
+    ): Response<UserData>
+
+    @POST("/login")
+   fun Login(@Field("username") username: String, @Field("password") password: String): Call<Login>
+
     @POST("createuser")
     suspend fun createuser(@Body body: RequestBody?): ResponseBody?
 //    suspend fun CreateSchedule(): Response<ScheduleData>

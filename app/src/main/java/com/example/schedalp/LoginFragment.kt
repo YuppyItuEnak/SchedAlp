@@ -5,6 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import androidx.lifecycle.ViewModelProvider
+import com.example.schedalp.databinding.FragmentLoginBinding
+import com.example.schedalp.model.Login
+import com.example.schedalp.viewmodel.ScheduleViewModel
+import com.example.schedalp.viewmodel.UserViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import retrofit2.Call
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -16,7 +26,11 @@ private const val ARG_PARAM2 = "param2"
  * Use the [LoginFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
+    private lateinit var viewModel: UserViewModel
+    private lateinit var login: Button
+    private lateinit var binding: FragmentLoginBinding
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -33,13 +47,42 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
+        binding.loginsubmit.setOnClickListener {
+            val username = binding.username.editText!!.text.toString().trim()
+            val password = binding.password.editText!!.text.toString().trim()
+
+            viewModel = ViewModelProvider(this)[UserViewModel::class.java]
+            viewModel.Login(username, password).enqueue(object : retrofit2.Callback<Login>{
+                override fun onResponse(call: retrofit2.Call<Login>, response: retrofit2.Response<Login>) {
+
+                }
+
+                override fun onFailure(call: Call<Login>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+            })
+
+
+        }
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//
+//        login = view.findViewById(R.id.loginsubmit)
+//        login.setOnClickListener {
+//
+//
+//        }
+//
+//
+//
+//        super.onViewCreated(view, savedInstanceState)
+//    }
+
+
 
     companion object {
         /**

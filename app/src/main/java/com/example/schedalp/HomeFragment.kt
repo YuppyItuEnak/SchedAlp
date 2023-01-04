@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.schedalp.adapter.ScheduleAdapter
-import com.example.schedalp.databinding.ActivityMainBinding
 import com.example.schedalp.view.AddScheduleActivity
 import com.example.schedalp.viewmodel.ScheduleViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,13 +47,13 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
-        viewModel.dataschedule.observe(viewLifecycleOwner) { response ->
+        viewModel.dataschedule.observe(viewLifecycleOwner, { response ->
             val layoutmanager = LinearLayoutManager(context)
             recycler = view.findViewById(R.id.mainrv)
             recycler.layoutManager = layoutmanager
-            adapter = ScheduleAdapter(response)
+            adapter = ScheduleAdapter(response.data as ArrayList)
             recycler.adapter = adapter
-        }
+        })
         super.onViewCreated(view, savedInstanceState)
     }
 

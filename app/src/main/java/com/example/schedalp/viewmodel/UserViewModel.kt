@@ -27,6 +27,7 @@ class UserViewModel @Inject constructor(private val userRepository: UserReposito
         get() = _user
 
 
+    fun Login(username: String, password: String) = userRepository.LoginUser(username, password)
 
     fun Register() = viewModelScope.launch{
         userRepository.Register(

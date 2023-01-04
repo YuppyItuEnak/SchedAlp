@@ -7,7 +7,13 @@ import javax.inject.Inject
 
 class UserRepository @Inject constructor(private val api: EndPointApi){
 
-    suspend fun getUser() = api.getUser()
+    suspend fun getUser(id:Int) = api.getUser(id)
+
+    fun LoginUser(
+        username: String,
+        password: String,
+    ) = api.Login(username, password)
+
 
     suspend fun Register(
         email: String,

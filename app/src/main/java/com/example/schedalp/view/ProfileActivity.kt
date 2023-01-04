@@ -18,7 +18,7 @@ class ProfileActivity : AppCompatActivity() {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
 
-        fragmentTransaction.replace(R.id.frameLayout, LoginFragment)
+        fragmentTransaction.replace(R.id.frameLayoutHome, LoginFragment)
         fragmentTransaction.commit()
     }
 }
