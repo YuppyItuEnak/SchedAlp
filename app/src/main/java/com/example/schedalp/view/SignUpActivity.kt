@@ -30,7 +30,7 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun register(){
-        binding.submitsign.setOnClickListener {
+        binding.submitreg.setOnClickListener {
             user = ViewModelProvider(this)[UserViewModel::class.java]
             var username = binding.inputusername.editText!!.text.toString()
             var email = binding.inputemail.editText!!.text.toString()

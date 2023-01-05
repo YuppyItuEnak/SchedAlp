@@ -12,14 +12,18 @@ interface EndPointApi {
 
     @GET("schedule")
     suspend fun getAllSchedule(): Response<ScheduleData>
-    @GET("getschedule")
-    suspend fun getSchedule(): Response<ScheduleData>
+
+    @GET("/getschedule/{schdlid}")
+    suspend fun getSchedule(@Path("schdlid") schdlid: Int): Response<Data>
 
     @PATCH("updateschedule")
-    suspend fun updateschedule(): Response<ScheduleData>
+    suspend fun updateschedule(@Body body: RequestBody?): ResponseBody?
 
     @POST("createschedule")
     suspend fun createSchedule(@Body body: RequestBody?): ResponseBody?
+
+    @DELETE("deleteschedule/{id}")
+    suspend fun deleteschedule(@Field("id") id: Int): Response<Delete>
 
 
 
@@ -29,8 +33,11 @@ interface EndPointApi {
     ): Response<UserData>
 
     @FormUrlEncoded
-    @POST("/login")
-   fun Login(@Field("username") username: String, @Field("password") password: String): Call<Login>
+    @POST("loginuser")
+   fun login(
+        @Field("username") username: String,
+        @Field("password") password: String,
+    ): Call<Login>
 
     @POST("createuser")
     suspend fun createuser(@Body body: RequestBody?): ResponseBody?

@@ -29,6 +29,10 @@ class ScheduleViewModel @Inject constructor(private val repository: ScheduleRepo
         MutableLiveData<ScheduleData>()
     }
 
+    val _schduleId: MutableLiveData<Data> by lazy {
+        MutableLiveData<Data>()
+    }
+
     val dataschedule: LiveData<ScheduleData>
     get() = _schedule
 
@@ -42,15 +46,27 @@ class ScheduleViewModel @Inject constructor(private val repository: ScheduleRepo
         }
     }
 
-//    fun getSchedule(schedule: Int) = viewModelScope.launch {
-//        repository.getSchedule().let { response ->
-//            if( response.isSuccessful){
-//                _schedule.postValue(response.body()?.data as ArrayList<Data>)
-//            }else{
-//                Log.e("Get Data", "Failed!")
-//            }
-//        }
-//    }
+
+    suspend fun DeleteSchedule(id: Int) = repository.DeleteSchedule(id)
+
+    fun UpdateSchedule() = viewModelScope.launch {
+        repository.UpdateSchedule(
+            schedule_name = state.schedule_name,
+            date = state.date,
+            waktu = state.waktu,
+            activity = state.activity
+        )
+    }
+
+    fun getSchedule(schdlid: Int) = viewModelScope.launch {
+        repository.getSchedule(schdlid).let { response ->
+            if( response.isSuccessful){
+                _schduleId.postValue(response.body())
+            }else{
+                Log.e("Get Data", "Failed!")
+            }
+        }
+    }
 
     fun createSchedule() = viewModelScope.launch{
         repository.createSchedule(

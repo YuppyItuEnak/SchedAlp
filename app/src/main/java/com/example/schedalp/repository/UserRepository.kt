@@ -1,5 +1,6 @@
 package com.example.schedalp.repository
 
+import com.example.schedalp.model.LoginRequest
 import com.example.schedalp.retrofit.EndPointApi
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -9,10 +10,10 @@ class UserRepository @Inject constructor(private val api: EndPointApi){
 
     suspend fun getUser(id:Int) = api.getUser(id)
 
-    fun LoginUser(
+    fun loginUser(
         username: String,
         password: String,
-    ) = api.Login(username, password)
+    ) = api.login(username = username, password = password)
 
 
     suspend fun Register(

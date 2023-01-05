@@ -124,6 +124,10 @@ class AddScheduleActivity : AppCompatActivity() {
             activity = activity
         )
         schedule.createSchedule()
+//        if(){
+//            schedule.UpdateSchedule()
+//        }
+
         showAlert(time, schedule_name, activity)
     }
 
@@ -183,23 +187,21 @@ class AddScheduleActivity : AppCompatActivity() {
 //        if (id != 0){
 //            schedule = ViewModelProvider(this)[ScheduleViewModel::class.java]
 //
-//            schedule.getAllScheduleData()Schedule(id)
+//
 //            schedule.dataschedule.observe(this, { response ->
-//                var schedule_name = response[id].schedule_name
-//                var date = response[id].date
-//                var enddate = response[id].enddate
-//                var waktu = response[id].waktu
-//                var endwaktu = response[id].endwaktu
-//                var activity = response[id].activity
+//                var schedule_name = response.
+//                var date =
+//                var waktu =
+//                var activity =
 //            } )
 //
 //            schedule.state = schedule.state.copy(
-//                schedule_name = schedule_name,
-//                date = date,
-//                enddate = enddate,
-//                waktu = waktu,
-//                endwaktu = endwaktu,
-//                activity = activity
+//                schedule_name =
+//                date =
+//
+//                waktu =
+//
+//                activity =
 //            )
 //            schedule
 //            val intent = Intent(this, MainActivity::class.java)
