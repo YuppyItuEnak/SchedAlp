@@ -52,7 +52,11 @@ class ScheduleViewModel @Inject constructor(private val repository: ScheduleRepo
     val getscheduleId: LiveData<Data>
     get() = _schduleId
 
-    suspend fun DeleteSchedule(id: Int) = repository.DeleteSchedule(id)
+     fun DeleteSchedule() = viewModelScope.launch {
+        repository.DeleteSchedule(
+            id = state.id
+        )
+    }
 
     fun UpdateSchedule() = viewModelScope.launch {
         repository.UpdateSchedule(

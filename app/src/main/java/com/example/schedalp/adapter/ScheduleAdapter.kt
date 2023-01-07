@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.schedalp.R
 import com.example.schedalp.model.Data
 import com.example.schedalp.view.EditScheduleActivity
+import com.example.schedalp.view.MainActivity
 import com.example.schedalp.viewmodel.ScheduleViewModel
 
 
@@ -79,7 +80,9 @@ class ScheduleAdapter(private val dataSet: ArrayList<Data>,
             it.context.startActivity(editsched)
         }
         viewHolder.delete.setOnClickListener {
-
+            val deletesched = Intent(it.context, MainActivity::class.java)
+            deletesched.putExtra("del_id", dataSet[position].id)
+            it.context.startActivity(deletesched)
         }
 
 

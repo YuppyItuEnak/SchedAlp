@@ -22,8 +22,10 @@ interface EndPointApi {
     @POST("createschedule")
     suspend fun createSchedule(@Body body: RequestBody?): ResponseBody?
 
-    @DELETE("deleteschedule/{id}")
-    suspend fun deleteschedule(@Field("id") id: Int): Response<Delete>
+
+    @DELETE("deleteschedule")
+
+    suspend fun deleteschedule(@Query("id") id: String): ResponseBody?
 
 
 

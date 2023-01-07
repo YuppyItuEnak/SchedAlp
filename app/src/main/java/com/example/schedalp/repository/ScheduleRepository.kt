@@ -15,7 +15,11 @@ class ScheduleRepository @Inject constructor(private val api: EndPointApi){
 
     suspend fun getSchedule(schdlid: Int) = api.getSchedule(schdlid)
 
-    suspend fun DeleteSchedule(id: Int) = api.deleteschedule(id)
+    suspend fun DeleteSchedule(
+        id:String,
+    ) {
+        api.deleteschedule(id)
+    }
 //    suspend fun updateschedule()
 
     suspend fun UpdateSchedule(
