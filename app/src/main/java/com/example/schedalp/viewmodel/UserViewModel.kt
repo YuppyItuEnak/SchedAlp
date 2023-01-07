@@ -45,7 +45,13 @@ class UserViewModel @Inject constructor(private val userRepository: UserReposito
         }
     }
 
-    fun login(username: String, password: String) = userRepository.loginUser(username, password)
+
+    fun Login() = viewModelScope.launch {
+        userRepository.loginUser(
+            username = userstate.username,
+            password = userstate.password
+        )
+    }
 
     fun Register() = viewModelScope.launch{
         userRepository.Register(

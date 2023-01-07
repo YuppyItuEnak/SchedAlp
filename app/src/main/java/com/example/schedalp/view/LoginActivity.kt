@@ -8,8 +8,13 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 
 import com.example.schedalp.R
+
 import com.example.schedalp.databinding.ActivityLoginBinding
+import com.example.schedalp.model.DataX
 import com.example.schedalp.model.Login
+import com.example.schedalp.model.LoginResponse
+import com.example.schedalp.model.UserData
+import com.example.schedalp.retrofit.AppModule
 import com.example.schedalp.viewmodel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
@@ -63,44 +68,31 @@ Login()
 
             if (isCompleted){
                 viewModel = ViewModelProvider(this@LoginActivity).get(UserViewModel::class.java)
-                viewModel.login(username, password).enqueue(object : retrofit2.Callback<Login> {
-                    override fun onResponse(call: Call<Login>, response: Response<Login>) {
-                        if (response.isSuccessful ) {
-                            val myIntent = Intent(this@LoginActivity, MainActivity::class.java)
-                            val login = response.body()
-                            if (login != null) {
-                                Toast.makeText(this@LoginActivity, login.login_id, Toast.LENGTH_SHORT).show()
-                            } else {
-                                Toast.makeText(this@LoginActivity, "Error: Login object is null", Toast.LENGTH_SHORT).show()
-                            }
+                viewModel.userstate = viewModel.userstate.copy(username = username, password = password)
+                viewModel.Login()
 
+                if(username == viewModel.userstate.username){
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    Toast.makeText(this@LoginActivity, "Login Success", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(this@LoginActivity, "Login Failed", Toast.LENGTH_SHORT).show()
+                }
 
-                            intent.putExtra("login_id", login?.login_id?.toInt())
-                            startActivity(myIntent)
-                            Toast.makeText(this@LoginActivity, "Login Success", Toast.LENGTH_SHORT).show()
-                            finish()
-                        } else {
-                            Toast.makeText(this@LoginActivity, "Login Failed", Toast.LENGTH_SHORT).show()
-                        }
-
-
-
-                    }
-//                    if(response.body()?.id != null){
-////                                Toast.makeText(this@LoginActivity, "ada", Toast.LENGTH_SHORT).show()
-////                            }else {
-////                                Toast.makeText(this@LoginActivity, "Tidak Ada ", Toast.LENGTH_SHORT).show()
-////                            }
-
-                    override fun onFailure(call: retrofit2.Call<Login>, t: Throwable) {
-                        Log.d("Login", "onFailure: ${t.message}")
-                    }
-                })
+//                Toast.makeText(this, viewModel.userstate.username, Toast.LENGTH_SHORT).show()
 
             }
 
         }
     }
 
-
+//    override fun onStart() {
+//        super.onStart()
+//
+//        if(SharedPrefManager.getInstance(this).isLoggedIn){
+//            val done = Intent(this@LoginActivity, MainActivity::class.java)
+//            done.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//            startActivity(done)
+//        }
+//    }
 }

@@ -32,12 +32,9 @@ interface EndPointApi {
         @Path("id") id:Int
     ): Response<UserData>
 
-    @FormUrlEncoded
+
     @POST("loginuser")
-   fun login(
-        @Field("username") username: String,
-        @Field("password") password: String,
-    ): Call<Login>
+   suspend fun login(@Body body: RequestBody?): ResponseBody?
 
     @POST("createuser")
     suspend fun createuser(@Body body: RequestBody?): ResponseBody?

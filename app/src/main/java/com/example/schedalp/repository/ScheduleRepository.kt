@@ -19,6 +19,7 @@ class ScheduleRepository @Inject constructor(private val api: EndPointApi){
 //    suspend fun updateschedule()
 
     suspend fun UpdateSchedule(
+        id:String,
         schedule_name: String,
         date: String,
         waktu: String,
@@ -26,6 +27,7 @@ class ScheduleRepository @Inject constructor(private val api: EndPointApi){
     ){
         val requestBody: RequestBody = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
+            .addFormDataPart("id", id)
             .addFormDataPart("schedule_name", schedule_name)
             .addFormDataPart("date", date)
             .addFormDataPart("waktu", waktu)
@@ -36,6 +38,7 @@ class ScheduleRepository @Inject constructor(private val api: EndPointApi){
     }
 
     suspend fun createSchedule(
+
         schedule_name: String,
         date: String,
         waktu: String,
@@ -43,6 +46,7 @@ class ScheduleRepository @Inject constructor(private val api: EndPointApi){
     ){
         val requestBody: RequestBody = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
+
             .addFormDataPart("schedule_name", schedule_name)
             .addFormDataPart("date", date)
             .addFormDataPart("waktu", waktu)
@@ -51,5 +55,7 @@ class ScheduleRepository @Inject constructor(private val api: EndPointApi){
 
         api.createSchedule(requestBody)
     }
+
+
 
 }

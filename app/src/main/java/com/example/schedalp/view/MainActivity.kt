@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.schedalp.R
+
 import com.example.schedalp.adapter.ScheduleAdapter
 import com.example.schedalp.databinding.ActivityMainBinding
 import com.example.schedalp.retrofit.Listener
@@ -56,6 +57,18 @@ class MainActivity : AppCompatActivity() {
             binding.mainrv.adapter = adapter
         })
     }
+
+//    override fun onStart() {
+//        super.onStart()
+//
+//        if(!SharedPrefManager.getInstance(this).isLoggedIn){
+//            val done = Intent(applicationContext, LoginActivity::class.java)
+//            done.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//            startActivity(done)
+//        }
+//    }
+
+
 
 //    private fun replaceFragment1(homefragment: Fragment){
 //        val fragmentManager = supportFragmentManager

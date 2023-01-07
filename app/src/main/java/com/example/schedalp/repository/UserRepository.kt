@@ -10,10 +10,18 @@ class UserRepository @Inject constructor(private val api: EndPointApi){
 
     suspend fun getUser(id:Int) = api.getUser(id)
 
-    fun loginUser(
+    suspend fun loginUser(
         username: String,
         password: String,
-    ) = api.login(username = username, password = password)
+    ) {
+        val requestBody: RequestBody = MultipartBody.Builder()
+            .setType(MultipartBody.FORM)
+            .addFormDataPart("username", username)
+            .addFormDataPart("password", password)
+
+            .build()
+        api.login(requestBody)
+    }
 
 
     suspend fun Register(

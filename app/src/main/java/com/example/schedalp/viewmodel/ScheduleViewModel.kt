@@ -29,9 +29,7 @@ class ScheduleViewModel @Inject constructor(private val repository: ScheduleRepo
         MutableLiveData<ScheduleData>()
     }
 
-    val _schduleId: MutableLiveData<Data> by lazy {
-        MutableLiveData<Data>()
-    }
+
 
     val dataschedule: LiveData<ScheduleData>
     get() = _schedule
@@ -47,10 +45,18 @@ class ScheduleViewModel @Inject constructor(private val repository: ScheduleRepo
     }
 
 
+    val _schduleId: MutableLiveData<Data> by lazy {
+        MutableLiveData<Data>()
+    }
+
+    val getscheduleId: LiveData<Data>
+    get() = _schduleId
+
     suspend fun DeleteSchedule(id: Int) = repository.DeleteSchedule(id)
 
     fun UpdateSchedule() = viewModelScope.launch {
         repository.UpdateSchedule(
+            id = state.id,
             schedule_name = state.schedule_name,
             date = state.date,
             waktu = state.waktu,

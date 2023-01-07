@@ -7,6 +7,7 @@ import java.util.*
 
 
 data class ScheduleState(
+    val id: String = "",
     val schedule_name: String = "",
     val date: String = ""  ,
     val waktu: String = "",
